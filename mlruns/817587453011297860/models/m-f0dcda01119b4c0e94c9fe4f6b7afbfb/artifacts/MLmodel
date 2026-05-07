@@ -1,0 +1,23 @@
+artifact_path: file:///C:/Users/DELL/ai-multi-agent-decision-engine/mlruns/817587453011297860/models/m-f0dcda01119b4c0e94c9fe4f6b7afbfb/artifacts
+flavors:
+  python_function:
+    config:
+      device: null
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pytorch
+    pickle_module_name: mlflow.pytorch.pickle_module
+    python_version: 3.11.9
+  pytorch:
+    code: null
+    model_data: data
+    pytorch_version: 2.10.0+cpu
+mlflow_version: 3.12.0
+model_id: m-f0dcda01119b4c0e94c9fe4f6b7afbfb
+model_size_bytes: 216055
+model_uuid: m-f0dcda01119b4c0e94c9fe4f6b7afbfb
+prompts: null
+run_id: f083204c4f2c474bacbbd058150dd51d
+utc_time_created: '2026-05-07 20:14:03.309917'

@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/DELL/ai-multi-agent-decision-engine/mlruns/817587453011297860/models/m-f0dcda01119b4c0e94c9fe4f6b7afbfb/artifacts
+creation_timestamp: 1778184843092
+experiment_id: '817587453011297860'
+last_updated_timestamp: 1778184874367
+model_id: m-f0dcda01119b4c0e94c9fe4f6b7afbfb
+model_type: null
+name: forecast_model
+source_run_id: f083204c4f2c474bacbbd058150dd51d
+status: 2
+status_message: null

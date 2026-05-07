@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 import joblib
 import mlflow
+import mlflow.pytorch
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
@@ -142,6 +143,11 @@ def train_model(X, y):
         print(f"Validation RMSE: {rmse:.4f}")
 
         mlflow.log_metric("rmse", rmse)
+
+        mlflow.pytorch.log_model(
+            pytorch_model=model,
+            artifact_path="forecast_model"
+        )
 
         mlflow.log_artifact(MODEL_PATH)
 
