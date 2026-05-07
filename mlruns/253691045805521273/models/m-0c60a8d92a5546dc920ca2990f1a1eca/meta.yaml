@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/DELL/ai-multi-agent-decision-engine/mlruns/253691045805521273/models/m-0c60a8d92a5546dc920ca2990f1a1eca/artifacts
+creation_timestamp: 1778182173943
+experiment_id: '253691045805521273'
+last_updated_timestamp: 1778182190949
+model_id: m-0c60a8d92a5546dc920ca2990f1a1eca
+model_type: null
+name: risk_model
+source_run_id: d8109847eef347d09d78bc492e00081c
+status: 2
+status_message: null

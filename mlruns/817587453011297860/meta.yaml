@@ -1,0 +1,8 @@
+artifact_location: file:///C:/Users/DELL/ai-multi-agent-decision-engine/mlruns/817587453011297860
+creation_time: 1778182222400
+experiment_id: '817587453011297860'
+last_update_time: 1778182222400
+lifecycle_stage: active
+name: forecasting_experiment
+trace_location: null
+workspace: default

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "High Growth Startup",
+    "input": {
+      "startup_name": "ScaleX AI",
+      "industry": "SaaS",
+      "revenue_history": [50, 120, 250, 400, 700],
+      "burn_rate": 60,
+      "customer_growth_rate": 0.7,
+      "market_notes": "Explosive growth, excellent product, strong demand."
+    }
+  },
+  {
+    "name": "High Burn Risk",
+    "input": {
+      "startup_name": "FlashBurn",
+      "industry": "Crypto",
+      "revenue_history": [100, 200, 350, 600],
+      "burn_rate": 1200,
+      "customer_growth_rate": 0.6,
+      "market_notes": "Strong growth but high spending and sustainability concerns."
+    }
+  },
+  {
+    "name": "Declining Startup",
+    "input": {
+      "startup_name": "FailFast",
+      "industry": "Fintech",
+      "revenue_history": [600, 450, 300, 180],
+      "burn_rate": 150,
+      "customer_growth_rate": -0.4,
+      "market_notes": "Customers unhappy, declining usage, serious problems."
+    }
+  },
+  {
+    "name": "Neutral Mixed Case",
+    "input": {
+      "startup_name": "ConfuseTech",
+      "industry": "EdTech",
+      "revenue_history": [100, 150, 180],
+      "burn_rate": 80,
+      "customer_growth_rate": 0.2,
+      "market_notes": "Growth is good but many complaints and bugs reported."
+    }
+  },
+  {
+    "name": "Stable Company",
+    "input": {
+      "startup_name": "StableCorp",
+      "industry": "Healthcare",
+      "revenue_history": [300, 305, 302, 304],
+      "burn_rate": 40,
+      "customer_growth_rate": 0.01,
+      "market_notes": "Stable performance, average satisfaction."
+    }
+  }
+]

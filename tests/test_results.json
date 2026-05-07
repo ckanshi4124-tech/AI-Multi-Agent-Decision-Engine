@@ -1,0 +1,32 @@
+[
+  {
+    "name": "High Growth Startup",
+    "decision": "INVEST",
+    "risk": "Low",
+    "status": "PASS"
+  },
+  {
+    "name": "High Burn Risk",
+    "decision": "CAUTIOUS",
+    "risk": "Medium",
+    "status": "PASS"
+  },
+  {
+    "name": "Declining Startup",
+    "decision": "AVOID",
+    "risk": "Medium",
+    "status": "PASS"
+  },
+  {
+    "name": "Neutral Mixed Case",
+    "decision": "CAUTIOUS",
+    "risk": "Medium",
+    "status": "PASS"
+  },
+  {
+    "name": "Stable Company",
+    "decision": "INVEST",
+    "risk": "Low",
+    "status": "PASS"
+  }
+]
