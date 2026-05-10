@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: ai-multi-agent-decision-engine
+    env: docker
+    plan: free
+    autoDeploy: true
+    
