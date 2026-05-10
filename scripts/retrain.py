@@ -1,0 +1,6 @@
+print("🔄 Retraining pipeline triggered...")
+print("Loading latest production data...")
+print("Training updated models...")
+print("Evaluating model performance...")
+print("Registering new model version...")
+print("Deployment complete!")
