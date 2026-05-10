@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+mlruns/
+.dvc/
+.dvc_storage/
+.git/
