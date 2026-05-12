@@ -104,12 +104,12 @@ class ReportRequest(BaseModel):
 # =========================
 
 @app.get("/health")
-def health():
-
+@app.get("/health ")
+async def health():
     return {
-        "status": "API is running"
+        "status": "healthy",
+        "service": "AI Multi-Agent Decision Engine"
     }
-
 
 # =========================
 # RISK
