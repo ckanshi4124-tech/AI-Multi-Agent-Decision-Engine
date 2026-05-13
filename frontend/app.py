@@ -12,6 +12,15 @@ st.set_page_config(
     layout="wide"
 )
 
+# Hide Streamlit developer toolbar
+st.markdown("""
+<style>
+#MainMenu {visibility: hidden;}
+header[data-testid="stHeader"] {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
 API_URL = "https://ai-multi-agent-decision-engine.onrender.com/report"
 
 # =========================
@@ -169,27 +178,52 @@ if st.sidebar.button("🚀 Generate Full Report", use_container_width=True):
         # DETAILED MODE
         # =========================
         if report_mode == "Detailed Analysis":
-
             st.markdown("## 🔍 Detailed Analysis")
 
-            with st.expander("📈 Forecast Analysis", expanded=False):
-                st.json(result["forecast"])
+            # Forecast Analysis
+            with st.expander("📈 Forecast Analysis", expanded=True):
+                forecast = result.get("forecast", {})
+                st.metric("Predicted Growth Rate", f"{forecast.get('predicted_growth_rate', 0):.2f}%")
+                st.metric("Confidence", f"{forecast.get('confidence', 0):.2f}")
+                st.write(f"**Trend:** {forecast.get('trend', 'N/A').title()}")
 
-            with st.expander("⚠️ Risk Assessment", expanded=False):
-                st.json(result["risk_assessment"])
+            # Risk Assessment
+            with st.expander("⚠️ Risk Assessment"):
+                risk = result.get("risk_assessment", {})
+                st.metric("Risk Level", risk.get("risk_level", "N/A"))
+                st.metric("Risk Probability", f"{risk.get('risk_probability', 0):.2%}")
+                st.metric("Confidence", f"{risk.get('confidence', 0):.2f}")
 
-            with st.expander("📰 Market Sentiment", expanded=False):
-                st.json(result["market_sentiment"])
+            # Market Sentiment
+            with st.expander("📰 Market Sentiment"):
+                sentiment = result.get("market_sentiment", {})
+                st.metric("Sentiment", sentiment.get("label", "N/A"))
+                st.metric("Confidence", f"{sentiment.get('confidence', 0):.2f}")
 
-            with st.expander("🧠 Strategic Recommendation", expanded=False):
-                st.json(result["strategic_recommendation"])
+            # Strategic Recommendation
+            with st.expander("🧠 Strategic Recommendation"):
+                recommendation = result.get("strategic_recommendation", {})
+                st.success(recommendation.get("decision", "N/A"))
+                st.write(recommendation.get("explanation", "No explanation available."))
 
-            with st.expander("🧪 Evaluation Diagnostics", expanded=False):
-                st.json(result["evaluation"])
+            # Evaluation Diagnostics
+            with st.expander("🧪 Evaluation Diagnostics"):
+                evaluation = result.get("evaluation", {})
+                st.metric("Expected Decision", evaluation.get("expected_decision", "N/A"))
+                st.metric("Actual Decision", evaluation.get("actual_decision", "N/A"))
+                st.metric("Evaluation Grade", evaluation.get("evaluation_grade", "N/A"))
+                st.metric("Quality Score", f"{evaluation.get('quality_score', 0):.2f}")
+                st.metric("Signal Agreement", f"{evaluation.get('signal_agreement', 0):.2f}")
 
-            with st.expander("⚙️ Technical JSON Output", expanded=False):
-                st.json(result)
+                issues = evaluation.get("issues_found", [])
+                if issues:
+                    st.warning("Issues Found:")
+                    for issue in issues:
+                        st.write(f"• {issue}")
+                else:
+                    st.success("No issues detected.")
 
+            
     except Exception as e:
         st.error(f"Unexpected Error: {e}")
         
