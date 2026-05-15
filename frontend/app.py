@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import pandas as pd
-import plotly.express as px
 
 # =========================
 # PAGE CONFIG
@@ -163,17 +162,10 @@ if st.sidebar.button("🚀 Generate Full Report", use_container_width=True):
             "Period": list(range(1, len(revenue_history) + 1)),
             "Revenue": revenue_history
         })
-
-        fig = px.line(
-            df,
-            x="Period",
-            y="Revenue",
-            markers=True,
-            title="Historical Revenue Trend"
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
-
+        
+        st.subheader("Historical Revenue Trend")
+        st.line_chart(df.set_index("Period"))
+        
         # =========================
         # DETAILED MODE
         # =========================
