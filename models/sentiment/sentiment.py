@@ -10,42 +10,20 @@ class SentimentAnalyzer:
     """
 
     def __init__(self):
-        logger.info("Lightweight sentiment analyzer initialized")
+        logger.info("Initializing DistilBERT sentiment analyzer")
 
-        self.positive_words = {
-            "growth", "profit", "success", "strong", "scaling",
-            "improving", "excellent", "expansion", "demand",
-            "increase", "positive", "bullish", "opportunity",
-            "good", "favorable", "efficient", "innovative",
-            "stable", "robust", "promising"
-        }
+        from transformers import pipeline
 
-        self.negative_words = {
-            "loss", "decline", "drop", "churn", "weak",
-            "poor", "crash", "issue", "problem", "decreasing",
-            "negative", "bearish", "risk", "threat",
-            "uncertain", "downturn", "failure", "unstable",
-            "delay", "challenge"
-        }
+        self.classifier = pipeline(
+            "sentiment-analysis",
+            model="distilbert-base-uncased-finetuned-sst-2-english"
+        )
 
-        self.mixed_indicators = {
-            "but", "however", "although", "though",
-            "yet", "nevertheless"
-        }
+        logger.info("DistilBERT sentiment analyzer loaded")
 
     def analyze(self, text: str):
-        """
-        Analyze sentiment and return:
-        {
-            "label": "Positive|Negative|Neutral",
-            "confidence": float,
-            "reason": str
-        }
-        """
         try:
-            # ---------------------------
-            # Input Validation
-            # ---------------------------
+
             if not text or not isinstance(text, str) or not text.strip():
                 return {
                     "label": "Neutral",
@@ -53,63 +31,31 @@ class SentimentAnalyzer:
                     "reason": "Empty or invalid text"
                 }
 
-            text_clean = text.strip()
-            text_lower = text_clean.lower()
-            words = set(text_lower.split())
+            result = self.classifier(text)[0]
 
-            # ---------------------------
-            # Base Counts
-            # ---------------------------
-            positive_hits = len(words & self.positive_words)
-            negative_hits = len(words & self.negative_words)
+            label = result["label"].upper()
+            score = float(result["score"])
 
-            reasons = []
+            if label == "POSITIVE":
+                final_label = "Positive"
 
-            # ---------------------------
-            # Initial Classification
-            # ---------------------------
-            if positive_hits > negative_hits:
-                label = "Positive"
-                confidence = 0.65 + (0.03 * positive_hits)
-                reasons.append(
-                    f"Detected {positive_hits} positive keyword(s)"
-                )
-
-            elif negative_hits > positive_hits:
-                label = "Negative"
-                confidence = 0.65 + (0.03 * negative_hits)
-                reasons.append(
-                    f"Detected {negative_hits} negative keyword(s)"
-                )
+            elif label == "NEGATIVE":
+                final_label = "Negative"
 
             else:
-                label = "Neutral"
-                confidence = 0.50
-                reasons.append("Balanced or no sentiment keywords")
-
-            # ---------------------------
-            # Mixed Sentiment Adjustment
-            # ---------------------------
-            if any(indicator in text_lower for indicator in self.mixed_indicators):
-                confidence -= 0.05
-                reasons.append("Mixed sentiment indicator detected")
-
-            # ---------------------------
-            # Normalize Confidence
-            # ---------------------------
-            confidence = round(
-                max(0.0, min(0.95, confidence)),
-                2
-            )
+                final_label = "Neutral"
 
             return {
-                "label": label,
-                "confidence": confidence,
-                "reason": "; ".join(reasons)
+                "label": final_label,
+                "confidence": round(score, 2),
+                "reason": f"DistilBERT sentiment classification ({label})"
             }
 
         except Exception as e:
-            logger.error(f"Sentiment analysis error: {e}")
+
+            logger.error(
+                f"Sentiment analysis error: {e}"
+            )
 
             return {
                 "label": "Neutral",
@@ -117,7 +63,7 @@ class SentimentAnalyzer:
                 "reason": "Error fallback"
             }
 
-
+           
 # Singleton instance
 analyzer = SentimentAnalyzer()
 

@@ -68,7 +68,6 @@ def train_model(X, y):
             model.parameters(),
             lr=0.001
         )
-        batch_size = 64
 
         epochs = 40
 
@@ -81,34 +80,20 @@ def train_model(X, y):
 
             model.train()
 
-            epoch_loss = 0
+            outputs = model(X_train)
 
-            for i in range(0, len(X_train), batch_size):
+            loss = criterion(outputs, y_train)
 
-                batch_x = X_train[i:i+batch_size]
+            optimizer.zero_grad()
 
-                batch_y = y_train[i:i+batch_size]
+            loss.backward()
 
-                outputs = model(batch_x)
-
-                loss = criterion(outputs, batch_y)
-
-                optimizer.zero_grad()
-
-                loss.backward()
-
-                torch.nn.utils.clip_grad_norm_(
-                    model.parameters(),
-                    max_norm=1.0
-                )
-
-                optimizer.step()
-
-                epoch_loss += loss.item()
-
-            loss = epoch_loss / (
-                len(X_train) // batch_size + 1
+            torch.nn.utils.clip_grad_norm_(
+                model.parameters(),
+                max_norm=1.0
             )
+
+            optimizer.step()
 
             model.eval()
 
@@ -132,7 +117,7 @@ def train_model(X, y):
 
             print(
                 f"Epoch {epoch+1}/{epochs} | "
-                f"Train Loss: {loss:.6f} | "
+                f"Train Loss: {loss.item():.6f} | "
                 f"Val Loss: {val_loss.item():.6f}"
             )
 
@@ -176,9 +161,6 @@ if __name__ == "__main__":
     df = preprocess_data(train, stores)
 
     X, y, scaler = create_sequences(df)
-
-    print("X shape:", X.shape)
-    print("y shape:", y.shape)
 
     model = train_model(X, y)
 

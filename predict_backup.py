@@ -219,27 +219,9 @@ def forecast(input_data):
                 pred_scaled
             )
 
-        trend = detect_trend(sequence)
-
-        last_value = sequence[-1]
-
-        if future_preds:
-
-            first_pred = future_preds[0]
-
-            change_ratio = abs(
-                first_pred - last_value
-                ) / (last_value + 1e-6)
-
-            if change_ratio > 0.5:
-
-                fallback = fallback_prediction(
-                    sequence
-                )
-
-                return fallback
-
         next_prediction = future_preds[0]
+
+        trend = detect_trend(sequence)
 
         confidence = calculate_confidence(
             sequence,

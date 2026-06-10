@@ -36,16 +36,7 @@ def create_sequences(df, seq_length=SEQ_LENGTH):
     all_x = []
     all_y = []
 
-    all_sales = (
-        df[df["Store"].isin(df["Store"].unique()[:10])]
-        ["Weekly_Sales"]
-        .values
-        .reshape(-1, 1)
-    )
-
     scaler = MinMaxScaler(feature_range=(0, 1))
-
-    scaler.fit(all_sales)
 
     for store_id in df["Store"].unique()[:10]:
 
@@ -61,7 +52,7 @@ def create_sequences(df, seq_length=SEQ_LENGTH):
             .reshape(-1, 1)
         )
 
-        sales_scaled = scaler.transform(sales)
+        sales_scaled = scaler.fit_transform(sales)
 
         for i in range(
             len(sales_scaled) - seq_length
